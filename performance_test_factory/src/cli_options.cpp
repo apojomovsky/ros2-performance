@@ -29,6 +29,7 @@ Options::Options()
   name_threads = true;
   duration_sec = 5;
   csv_out = false;
+  timers_separate_thread = false;
   resources_sampling_per_ms = 1000;
   tracking_options.is_enabled = false;
   tracking_options.late_percentage = 20;
@@ -53,6 +54,7 @@ void Options::parse(int argc, char ** argv)
   std::string name_threads_option;
   std::string tracking_enabled_option;
   std::string csv_out_option;
+  std::string timers_separate_thread_option;
   options.positional_help("FILE [FILE...]").show_positional_help();
   options.parse_positional({"topology"});
   options.add_options()("h,help", "print help")(
@@ -100,7 +102,10 @@ void Options::parse(int argc, char ** argv)
       std::to_string(tracking_options.too_late_absolute_us)), "usec")(
     "csv-out",
     "write comma-delimted results files",
-    cxxopts::value<std::string>(csv_out_option)->default_value(csv_out ? "on" : "off"), "on/off");
+    cxxopts::value<std::string>(csv_out_option)->default_value(csv_out ? "on" : "off"), "on/off")(
+    "timers-separate-thread",
+    "use separate threads to execute timers",
+    cxxopts::value<std::string>(timers_separate_thread_option)->default_value(timers_separate_thread ? "on" : "off"), "on/off");
 
   try {
     auto result = options.parse(argc, argv);
@@ -126,6 +131,10 @@ void Options::parse(int argc, char ** argv)
     if (csv_out_option != "off" && csv_out_option != "on") {
       throw cxxopts::argument_incorrect_type(csv_out_option);
     }
+
+    if (timers_separate_thread_option != "off" && timers_separate_thread_option != "on") {
+      throw cxxopts::argument_incorrect_type(timers_separate_thread_option);
+    }
   } catch (const cxxopts::OptionException & e) {
     std::cout << "Error parsing options. " << e.what() << std::endl;
     exit(1);
@@ -136,6 +145,7 @@ void Options::parse(int argc, char ** argv)
   name_threads = (name_threads_option == "on" ? true : false);
   tracking_options.is_enabled = (tracking_enabled_option == "on" ? true : false);
   csv_out = (csv_out_option == "on" ? true : false);
+  timers_separate_thread = (timers_separate_thread_option == "on" ? true : false);
 }
 
 std::ostream & operator<<(std::ostream & os, const Options & options)
@@ -159,6 +169,7 @@ std::ostream & operator<<(std::ostream & os, const Options & options)
   os << "duration_sec: " << options.duration_sec << " seconds" << std::endl;
   os << "resources_sampling_per_ms: " << options.resources_sampling_per_ms << std::endl;
   os << "csv_out: " << (options.csv_out ? "on" : "off") << std::endl;
+  os << "timers_separate_thread: " << (options.timers_separate_thread ? "on" : "off") << std::endl;
   os << "tracking.is_enabled: " << (options.tracking_options.is_enabled ? "on" : "off")
      << std::endl;
 

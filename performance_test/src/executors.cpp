@@ -44,7 +44,7 @@ std::ostream & operator<<(std::ostream & os, const ExecutorType & t)
   return os << executor_name;
 }
 
-std::shared_ptr<rclcpp::Executor> make_executor(ExecutorType type)
+std::shared_ptr<rclcpp::Executor> make_executor(ExecutorType type, bool timers_separate_thread)
 {
   std::shared_ptr<rclcpp::Executor> executor;
 
@@ -56,10 +56,10 @@ std::shared_ptr<rclcpp::Executor> make_executor(ExecutorType type)
       executor = std::make_shared<rclcpp::executors::StaticSingleThreadedExecutor>();
       break;
     case ExecutorType::EVENTS_EXECUTOR:
-      executor = std::make_shared<rclcpp::executors::EventsExecutor>(std::make_unique<rclcpp::executors::SimpleEventsQueue>(), true, rclcpp::ExecutorOptions());
+      executor = std::make_shared<rclcpp::executors::EventsExecutor>(std::make_unique<rclcpp::executors::SimpleEventsQueue>(), timers_separate_thread, rclcpp::ExecutorOptions());
       break;
     case ExecutorType::EVENTS_EXECUTOR_EXPERIMENTAL_NS:
-      executor = std::make_shared<rclcpp::experimental::executors::EventsExecutor>(std::make_unique<rclcpp::experimental::executors::SimpleEventsQueue>(), true, rclcpp::ExecutorOptions());
+      executor = std::make_shared<rclcpp::experimental::executors::EventsExecutor>(std::make_unique<rclcpp::experimental::executors::SimpleEventsQueue>(), timers_separate_thread, rclcpp::ExecutorOptions());
       break;
   }
 

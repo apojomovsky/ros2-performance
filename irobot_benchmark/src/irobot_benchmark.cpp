@@ -76,7 +76,8 @@ create_ros2_system(
     static_cast<performance_test::ExecutorType>(options.executor),
     performance_test::SpinType::SPIN,
     events_output_path_opt,
-    options.csv_out);
+    options.csv_out,
+    options.timers_separate_thread);
 
   return system;
 }

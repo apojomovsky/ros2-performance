@@ -27,11 +27,9 @@ install(TARGETS
 install(
   DIRECTORY
     profiles
-    topology/single_process
-    topology/full_topologies
-    topology/multi_process
- TYPE
-    DATA
+    topology
+  DESTINATION
+    share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

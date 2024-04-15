@@ -24,29 +24,15 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-set(FT topology/full_topologies)
-set(SP topology/single_process)
-set(MP topology/multi_process)
-
-install(DIRECTORY ${FT}
-  DESTINATION lib/${PROJECT_NAME}/${FT}
-  FILES_MATCHING PATTERN "*.json")
-
-install(DIRECTORY ${SP}
-  DESTINATION lib/${PROJECT_NAME}/${SP}
-  FILES_MATCHING PATTERN "*.json")
-
-install(DIRECTORY ${MP}
-  DESTINATION lib/${PROJECT_NAME}/${MP}
-  FILES_MATCHING PATTERN "*.json")
-
-set(PROFILES
-  profiles/ignore_local_endpoints.xml
-  profiles/shared_memory_fastdds_config.xml)
-
-install(FILES
-  ${PROFILES}
-  DESTINATION lib/${PROJECT_NAME}/profiles)
+install(
+  DIRECTORY
+    profiles
+    topology/single_process
+    topology/full_topologies
+    topology/multi_process
+ TYPE
+    DATA
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

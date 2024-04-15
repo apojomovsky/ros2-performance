@@ -32,7 +32,7 @@ public:
     SpinType spin_type = SpinType::SPIN,
     const std::optional<std::string> & events_logger_path = std::nullopt,
     const bool csv_out = false,
-    const bool timers_separate_thread = false);
+    const bool execute_timers_separate_thread = false);
 
   ~System();
 
@@ -96,7 +96,7 @@ private:
   ExecutorType m_executor_type;
   SpinType m_spin_type;
   bool m_csv_out;
-  bool m_timers_separate_thread;
+  bool m_execute_timers_separate_thread;
 };
 
 }  // namespace performance_test

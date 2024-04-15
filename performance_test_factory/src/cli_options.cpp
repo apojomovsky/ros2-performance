@@ -76,7 +76,7 @@ void Options::parse(int argc, char ** argv)
         resources_sampling_per_ms)), "msec")(
     "x, executor",
     "system executor:\n\t\t\t\t1:SingleThreadedExecutor. 2:StaticSingleThreadedExecutor. \
-    3:EventsExecutor. 4:EventsExecutor in the experimental namespace of rclcpp",
+    3:EventsExecutor.",
     cxxopts::value<int>(executor)->default_value(std::to_string(executor)), "<1/2/3/4>")(
     "n, node", "the node type:\n\t\t\t\t1:Node. 2:LifecycleNode",
     cxxopts::value<int>(node)->default_value(std::to_string(node)), "<1/2>")(

@@ -25,81 +25,20 @@ install(TARGETS
 )
 
 set(FT topology/full_topologies)
-
-set(TEST_TOPOLOGY_FILES
-  ${FT}/cedar.json
-  ${FT}/debug_mont_blanc_best_effort.json
-  ${FT}/debug_mont_blanc_reliable.json
-  ${FT}/debug_sierra_nevada_best_effort.json
-  ${FT}/debug_sierra_nevada_reliable.json
-  ${FT}/debug_white_mountain_best_effort.json
-  ${FT}/mont_blanc.json
-  ${FT}/sierra_nevada.json
-  ${FT}/sierra_nevada_fixed_size.json
-  ${FT}/debug_sierra_nevada_fixed_size_best_effort.json
-  ${FT}/sierra_nevada_fixed_size_loaned.json
-  ${FT}/sierra_nevada_loaned.json
-  ${FT}/white_mountain.json
-  ${FT}/white_mountain_fixed_size.json
-  ${FT}/debug_white_mountain_fixed_size_best_effort.json
-  ${FT}/white_mountain_fixed_size_loaned.json
-  ${FT}/white_mountain_loaned.json
-)
-
-install(FILES
-  ${TEST_TOPOLOGY_FILES}
-  DESTINATION lib/${PROJECT_NAME}/${FT})
-
 set(SP topology/single_process)
-
-set(TOPOLOGY_FILES_SINGLE_PROCESS
-  ${SP}/pub_sub_loaned_10b.json
-  ${SP}/pub_sub_loaned_100kb.json
-  ${SP}/pub_sub_loaned_1mb.json
-  ${SP}/pub_sub_loaned_4mb.json
-
-  ${SP}/pub_sub_10b_ipc_on.json
-  ${SP}/pub_sub_100kb_ipc_on.json
-  ${SP}/pub_sub_1mb_ipc_on.json
-  ${SP}/pub_sub_4mb_ipc_on.json
-
-  ${SP}/pub_sub_10b_ipc_off.json
-  ${SP}/pub_sub_100kb_ipc_off.json
-  ${SP}/pub_sub_1mb_ipc_off.json
-  ${SP}/pub_sub_4mb_ipc_off.json
-)
-
-install(FILES
-  ${TOPOLOGY_FILES_SINGLE_PROCESS}
-  DESTINATION lib/${PROJECT_NAME}/${SP})
-
 set(MP topology/multi_process)
 
-set(TOPOLOGY_FILES_MULTI_PROCESS
-  ${MP}/pub_ipc_off_10b.json
-  ${MP}/pub_ipc_off_100kb.json
-  ${MP}/pub_ipc_off_1mb.json
-  ${MP}/pub_ipc_off_4mb.json
+install(DIRECTORY ${FT}
+  DESTINATION lib/${PROJECT_NAME}/${FT}
+  FILES_MATCHING PATTERN "*.json")
 
-  ${MP}/sub_ipc_off_10b.json
-  ${MP}/sub_ipc_off_100kb.json
-  ${MP}/sub_ipc_off_1mb.json
-  ${MP}/sub_ipc_off_4mb.json
+install(DIRECTORY ${SP}
+  DESTINATION lib/${PROJECT_NAME}/${SP}
+  FILES_MATCHING PATTERN "*.json")
 
-  ${MP}/pub_loaned_10b.json
-  ${MP}/pub_loaned_100kb.json
-  ${MP}/pub_loaned_1mb.json
-  ${MP}/pub_loaned_4mb.json
-
-  ${MP}/sub_loaned_10b.json
-  ${MP}/sub_loaned_100kb.json
-  ${MP}/sub_loaned_1mb.json
-  ${MP}/sub_loaned_4mb.json
-)
-
-install(FILES
-  ${TOPOLOGY_FILES_MULTI_PROCESS}
-  DESTINATION lib/${PROJECT_NAME}/${MP})
+install(DIRECTORY ${MP}
+  DESTINATION lib/${PROJECT_NAME}/${MP}
+  FILES_MATCHING PATTERN "*.json")
 
 set(PROFILES
   profiles/ignore_local_endpoints.xml

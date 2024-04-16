@@ -28,8 +28,8 @@ install(
   DIRECTORY
     profiles
     topology
-  DESTINATION
-    share/${PROJECT_NAME}
+  TYPE
+    DATA
 )
 
 if(BUILD_TESTING)
